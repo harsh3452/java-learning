@@ -16,11 +16,11 @@ public class JDBCUtil {
         String password = "Hsp@11347";
         return DriverManager.getConnection(url,user,password);
     }
-    public static void closeConnection(Connection connect, Statement statement, ResultSet resultSet) throws SQLException {
-        if(resultSet != null)
-            resultSet.close();
-        if (statement != null)
-            statement.close();
+    public static void closeConnection(Connection connect) throws SQLException {
+//        if(resultSet != null)
+//            resultSet.close();
+//        if (statement != null)
+//            statement.close();
         if (connect != null)
             connect.close();
 
