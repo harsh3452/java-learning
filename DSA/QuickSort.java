@@ -14,7 +14,7 @@ public class QuickSort {
     private static void quickSort(int[] array, int start, int end){
 
         if(start<end){
-            int pi = partition(array, start, end);
+            int pi = partition(array, start, end); // pi is the correct position/index of the pivot we need that index to make sure we an partition properly and continue.
             quickSort(array,start,pi-1);
             quickSort(array, pi+1,end);
         }
