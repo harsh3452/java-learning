@@ -11,6 +11,6 @@ public class App
         //we don't have object yet only the container if the .xml file is empty
         Dev dev = (Dev) context.getBean("dev"); // can give the id here instead of Dev.class, but we need to caste it
         dev.build();
-        System.out.println(dev.getAge()); // age is being injected by spring.xml
+
     }
 }

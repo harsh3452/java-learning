@@ -5,15 +5,15 @@
            http://www.springframework.org/schema/beans
            https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="dev" class="com.harsh.Dev">
-        <property name="age" value="12"></property>
+    <bean id="dev" class="com.harsh.Dev" autowire="byType">
 <!--        <constructor-arg index="0" value="14"/> &lt;!&ndash;   constructor injection on the works &ndash;&gt;-->
 <!--        <constructor-arg index="1" value="400"/>-->
 <!--        <constructor-arg ref="lap1"/>-->
-        <constructor-arg name="computer" ref="desk1"/>
+<!--        <constructor-arg name="computer" ref="desk1"/>-->
           <!--// this is only used for setters no constructor are allowed&ndash;&gt;-->
+<!--        <property name="computer" ref="laptop"/>-->
     </bean>
+    <bean id="computer" class="com.harsh.Laptop" primary="true"/>
+    <bean id="desk1" class="com.harsh.Desktop"/>
 
-    <bean id="desk1" class="com.harsh.Desktop">
-    </bean>
 </beans>
