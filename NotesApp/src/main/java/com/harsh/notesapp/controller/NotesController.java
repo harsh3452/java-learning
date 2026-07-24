@@ -21,12 +21,12 @@ public class NotesController {
         return notesService.getAllNotes();
     }
 
-    @PostMapping("/create")
+    @PostMapping("/{noteId}")
     public Notes createNote(@RequestBody Notes note){
         return notesService.createNote(note);
     }
 
-    @GetMapping("{noteId}")
+    @GetMapping("/{noteId}")
     public ResponseEntity<Notes> getNoteById(@PathVariable int noteId){
         Notes result = notesService.getNoteById(noteId);
         if(result == null){
@@ -35,7 +35,7 @@ public class NotesController {
     }
 
 
-    @PutMapping("/update/{noteId}")
+    @PutMapping("/{noteId}")
     public ResponseEntity<String> updateNote(@PathVariable int noteId, @RequestBody Notes note){
         Notes result =  notesService.updateNote(noteId,note);
         if(result == null){
@@ -45,7 +45,7 @@ public class NotesController {
         }
     }
 
-    @DeleteMapping("/delete/{noteId}")
+    @DeleteMapping("/{noteId}")
     public ResponseEntity<String> deleteNote(@PathVariable int noteId){
         boolean result =  notesService.deleteNoteById(noteId);
         if(result){

@@ -1,0 +1,31 @@
+{
+  "title": "Spring Boot Basics",
+  "body": "Learned about @RestController, @Service, @Repository, dependency injection, and how Spring Boot automatically wires beans together."
+}
+
+{
+  "title": "Spring Data JPA",
+  "body": "JpaRepository provides CRUD methods out of the box. Hibernate generates SQL automatically based on entity mappings."
+}
+
+{
+  "title": "JWT Authentication",
+  "body": "JWT contains a header, payload, and signature. The server verifies the signature to ensure the token has not been tampered with."
+}
+
+{
+  "title": "Project Roadmap",
+  "body": "Finish CRUD API first. Then add exception handling, validation, users, JWT authentication, authorization, testing, and deployment."
+}
+
+{
+  "title": "DSA Practice",
+  "body": "Complete today's Striver problems. Focus on understanding patterns instead of memorizing solutions."
+}
+
+
+
+{
+  "title": "Database Design",
+  "body": "Every note will eventually belong to one user. The relationship between User and Note will be implemented after CRUD is complete."
+}
