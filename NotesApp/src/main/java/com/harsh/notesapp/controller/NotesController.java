@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/notes")
@@ -21,27 +22,28 @@ public class NotesController {
         return notesService.getAllNotes();
     }
 
-    @PostMapping("/{noteId}")
+    @PostMapping()
     public Notes createNote(@RequestBody Notes note){
         return notesService.createNote(note);
     }
 
     @GetMapping("/{noteId}")
-    public ResponseEntity<Notes> getNoteById(@PathVariable int noteId){
-        Notes result = notesService.getNoteById(noteId);
-        if(result == null){
+    public ResponseEntity<Notes> getNoteById(@PathVariable int noteId) {
+        Optional<Notes> note = notesService.getNoteById(noteId);
+        if (note.isPresent()) {
+            return ResponseEntity.ok(note.get());
+        } else {
             return ResponseEntity.notFound().build();
-        } return ResponseEntity.ok(result);
+        }
     }
 
-
     @PutMapping("/{noteId}")
-    public ResponseEntity<String> updateNote(@PathVariable int noteId, @RequestBody Notes note){
-        Notes result =  notesService.updateNote(noteId,note);
-        if(result == null){
-            return new ResponseEntity<String>("Failed! Note not found.", HttpStatus.NOT_FOUND);
+    public ResponseEntity<Notes> updateNote(@PathVariable int noteId, @RequestBody Notes note){
+        Optional<Notes> result =  notesService.updateNote(noteId,note);
+        if(result.isPresent()){
+            return new ResponseEntity<Notes>(result.get(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Note Updated Success", HttpStatus.OK);
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -49,7 +51,7 @@ public class NotesController {
     public ResponseEntity<String> deleteNote(@PathVariable int noteId){
         boolean result =  notesService.deleteNoteById(noteId);
         if(result){
-            return ResponseEntity.ok("Deletion Success");
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
         }

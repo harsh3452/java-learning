@@ -22,4 +22,7 @@ public class Notes {
     private String body;
     private LocalDateTime createdAt;
     private LocalDateTime lastEditedAt;
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
 }
