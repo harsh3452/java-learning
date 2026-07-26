@@ -1,5 +1,8 @@
 package com.harsh.notesapp.controller;
 
+import com.harsh.notesapp.dto.CreateNoteRequest;
+import com.harsh.notesapp.dto.NoteResponse;
+import com.harsh.notesapp.dto.UpdateNoteRequest;
 import com.harsh.notesapp.model.Notes;
 import com.harsh.notesapp.service.NotesService;
 import org.springframework.http.HttpStatus;
@@ -18,18 +21,18 @@ public class NotesController {
     }
 
     @GetMapping
-    public List<Notes> getAllNotes(){
+    public List<NoteResponse> getAllNotes(){
         return notesService.getAllNotes();
     }
 
     @PostMapping()
-    public Notes createNote(@RequestBody Notes note){
+    public NoteResponse createNote(@RequestBody CreateNoteRequest note){
         return notesService.createNote(note);
     }
 
     @GetMapping("/{noteId}")
-    public ResponseEntity<Notes> getNoteById(@PathVariable int noteId) {
-        Optional<Notes> note = notesService.getNoteById(noteId);
+    public ResponseEntity<NoteResponse> getNoteById(@PathVariable int noteId) {
+        Optional<NoteResponse> note = notesService.getNoteById(noteId);
         if (note.isPresent()) {
             return ResponseEntity.ok(note.get());
         } else {
@@ -38,10 +41,10 @@ public class NotesController {
     }
 
     @PutMapping("/{noteId}")
-    public ResponseEntity<Notes> updateNote(@PathVariable int noteId, @RequestBody Notes note){
-        Optional<Notes> result =  notesService.updateNote(noteId,note);
+    public ResponseEntity<NoteResponse> updateNote(@PathVariable int noteId, @RequestBody UpdateNoteRequest note){
+        Optional<NoteResponse> result =  notesService.updateNote(noteId,note);
         if(result.isPresent()){
-            return new ResponseEntity<Notes>(result.get(), HttpStatus.OK);
+            return new ResponseEntity<NoteResponse>(result.get(), HttpStatus.OK);
         } else {
             return ResponseEntity.notFound().build();
         }
