@@ -5,6 +5,7 @@ import com.harsh.notesapp.dto.NoteResponse;
 import com.harsh.notesapp.dto.UpdateNoteRequest;
 import com.harsh.notesapp.model.Notes;
 import com.harsh.notesapp.service.NotesService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class NotesController {
     }
 
     @PostMapping()
-    public NoteResponse createNote(@RequestBody CreateNoteRequest note){
+    public NoteResponse createNote(@Valid @RequestBody CreateNoteRequest note){
         return notesService.createNote(note);
     }
 
@@ -41,7 +42,7 @@ public class NotesController {
     }
 
     @PutMapping("/{noteId}")
-    public ResponseEntity<NoteResponse> updateNote(@PathVariable int noteId, @RequestBody UpdateNoteRequest note){
+    public ResponseEntity<NoteResponse> updateNote(@PathVariable int noteId,@Valid @RequestBody UpdateNoteRequest note){
         Optional<NoteResponse> result =  notesService.updateNote(noteId,note);
         if(result.isPresent()){
             return new ResponseEntity<NoteResponse>(result.get(), HttpStatus.OK);
