@@ -3,6 +3,7 @@ package com.harsh.notesapp.service;
 import com.harsh.notesapp.dto.CreateNoteRequest;
 import com.harsh.notesapp.dto.NoteResponse;
 import com.harsh.notesapp.dto.UpdateNoteRequest;
+import com.harsh.notesapp.mapper.NoteMapper;
 import com.harsh.notesapp.model.Notes;
 import com.harsh.notesapp.model.User;
 import com.harsh.notesapp.config.UserPrincipal;
@@ -25,68 +26,49 @@ public class NotesService {
         this.notesRepo=notesRepo;
     }
 
-    public List<NoteResponse> getAllNotes() {
+    private User getCurrentUser(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserPrincipal principal = (UserPrincipal) auth.getPrincipal();
-        User user = principal.getUser();
+        return principal.getUser();
+    }
+
+    public List<NoteResponse> getAllNotes() {
+        User user = getCurrentUser();
         List<Notes> allNotes = notesRepo.findByOwner(user);
         List<NoteResponse> noteResponses = new ArrayList<>();
         for(Notes note : allNotes){ // preparing all the responses and putting them in the lists;
-            NoteResponse noteResponse = new NoteResponse();
-            noteResponse.setNoteId(note.getNoteId());
-            noteResponse.setTitle(note.getTitle());
-            noteResponse.setBody(note.getBody());
-            noteResponse.setCreatedAt(note.getCreatedAt()   );
-            noteResponse.setLastEditedAt(note.getLastEditedAt());
-            noteResponses.add(noteResponse);
+            noteResponses.add(NoteMapper.toResponse(note));
         }
         return noteResponses;
     }
 
     public NoteResponse createNote(CreateNoteRequest noteRequest) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserPrincipal principal = (UserPrincipal) auth.getPrincipal();
-        User user = principal.getUser();
-
+        User user = getCurrentUser();
 
         //preparing entity from RequestNote to save in database
-        Notes note = new Notes();
-        note.setTitle(noteRequest.getTitle());
-        note.setBody(noteRequest.getBody());
-        note.setLastEditedAt(LocalDateTime.now());
-        note.setCreatedAt(LocalDateTime.now());
+        Notes note = NoteMapper.toEntity(noteRequest); //mapping body and title
+        LocalDateTime now = LocalDateTime.now();
+        note.setLastEditedAt(now);
+        note.setCreatedAt(now);
         note.setOwner(user);
 
+        // save the note to db
         Notes savedNote = notesRepo.save(note);
 
         // preparing NoteResponse dto to send to client
-        NoteResponse response = new NoteResponse();
-        response.setNoteId(savedNote.getNoteId());
-        response.setTitle(savedNote.getTitle());
-        response.setBody(savedNote.getBody());
-        response.setCreatedAt(savedNote.getCreatedAt());
-        response.setLastEditedAt(savedNote.getLastEditedAt());
-        return response;
+        return NoteMapper.toResponse(savedNote);
     }
 
     public Optional<NoteResponse> updateNote(int noteId, UpdateNoteRequest updatedNote) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserPrincipal principal = (UserPrincipal) auth.getPrincipal();
-        User user = principal.getUser();
+        User user = getCurrentUser();
         Optional<Notes> existingNote  = notesRepo.findByNoteIdAndOwner(noteId,user);
-       if(existingNote .isPresent()){
+       if(existingNote.isPresent()){
            Notes note = existingNote.get();
+           NoteMapper.applyUpdate(updatedNote,note);
            note.setLastEditedAt(LocalDateTime.now());
-           note.setBody(updatedNote.getBody());
-           note.setTitle(updatedNote.getTitle());
 
            Notes savedNote = notesRepo.save(note);
-           NoteResponse response = new NoteResponse();
-           response.setNoteId(savedNote.getNoteId());
-           response.setTitle(savedNote.getTitle());
-           response.setBody(savedNote.getBody());
-           response.setCreatedAt(savedNote.getCreatedAt());
-           response.setLastEditedAt(savedNote.getLastEditedAt());
+           NoteResponse response = NoteMapper.toResponse(savedNote);
 
            return Optional.of(response);
        } else {
@@ -95,28 +77,17 @@ public class NotesService {
     }
 
     public Optional<NoteResponse> getNoteById(int noteId) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserPrincipal principal = (UserPrincipal) auth.getPrincipal();
-        User user = principal.getUser();
+        User user = getCurrentUser();
         Optional<Notes> note = notesRepo.findByNoteIdAndOwner(noteId, user);
         if(note.isPresent()) {
-            Notes savedNote = note.get();
-            NoteResponse response = new NoteResponse();
-            response.setNoteId(savedNote.getNoteId());
-            response.setTitle(savedNote.getTitle());
-            response.setBody(savedNote.getBody());
-            response.setLastEditedAt(savedNote.getLastEditedAt());
-            response.setCreatedAt(savedNote.getCreatedAt());
-            return Optional.of(response);
+            return Optional.of(NoteMapper.toResponse(note.get()));
         } else {
             return Optional.empty();
         }
     }
 
     public boolean deleteNoteById(int noteId){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserPrincipal principal = (UserPrincipal) auth.getPrincipal();
-        User user = principal.getUser();
+        User user = getCurrentUser();
         Optional<Notes> existingNote = notesRepo.findByNoteIdAndOwner(noteId, user);
         if(existingNote.isPresent()){
             Notes note = existingNote.get();
