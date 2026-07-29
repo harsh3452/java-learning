@@ -32,32 +32,18 @@ public class NotesController {
     }
 
     @GetMapping("/{noteId}")
-    public ResponseEntity<NoteResponse> getNoteById(@PathVariable int noteId) {
-        Optional<NoteResponse> note = notesService.getNoteById(noteId);
-        if (note.isPresent()) {
-            return ResponseEntity.ok(note.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public NoteResponse getNoteById(@PathVariable int noteId) {
+       return notesService.getNoteById(noteId);
     }
 
     @PutMapping("/{noteId}")
-    public ResponseEntity<NoteResponse> updateNote(@PathVariable int noteId,@Valid @RequestBody UpdateNoteRequest note){
-        Optional<NoteResponse> result =  notesService.updateNote(noteId,note);
-        if(result.isPresent()){
-            return new ResponseEntity<NoteResponse>(result.get(), HttpStatus.OK);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public NoteResponse updateNote(@PathVariable int noteId,@Valid @RequestBody UpdateNoteRequest note){
+        return notesService.updateNote(noteId,note);
     }
 
     @DeleteMapping("/{noteId}")
-    public ResponseEntity<String> deleteNote(@PathVariable int noteId){
-        boolean result =  notesService.deleteNoteById(noteId);
-        if(result){
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Void> deleteNote(@PathVariable int noteId){
+        notesService.deleteNoteById(noteId);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -3,6 +3,7 @@ package com.harsh.notesapp.service;
 import com.harsh.notesapp.dto.CreateNoteRequest;
 import com.harsh.notesapp.dto.NoteResponse;
 import com.harsh.notesapp.dto.UpdateNoteRequest;
+import com.harsh.notesapp.exception.NoteNotFoundException;
 import com.harsh.notesapp.mapper.NoteMapper;
 import com.harsh.notesapp.model.Notes;
 import com.harsh.notesapp.model.User;
@@ -59,42 +60,29 @@ public class NotesService {
         return NoteMapper.toResponse(savedNote);
     }
 
-    public Optional<NoteResponse> updateNote(int noteId, UpdateNoteRequest updatedNote) {
+    public NoteResponse updateNote(int noteId, UpdateNoteRequest updatedNote) {
         User user = getCurrentUser();
-        Optional<Notes> existingNote  = notesRepo.findByNoteIdAndOwner(noteId,user);
-       if(existingNote.isPresent()){
-           Notes note = existingNote.get();
-           NoteMapper.applyUpdate(updatedNote,note);
-           note.setLastEditedAt(LocalDateTime.now());
+        Notes existingNote = notesRepo.findByNoteIdAndOwner(noteId,user)
+                .orElseThrow(()-> new NoteNotFoundException("Note not found"));
 
-           Notes savedNote = notesRepo.save(note);
-           NoteResponse response = NoteMapper.toResponse(savedNote);
+           NoteMapper.applyUpdate(updatedNote,existingNote);
+           existingNote.setLastEditedAt(LocalDateTime.now());
 
-           return Optional.of(response);
-       } else {
-           return Optional.empty();
-       }
+           Notes savedNote = notesRepo.save(existingNote);
+           return NoteMapper.toResponse(savedNote);
     }
 
-    public Optional<NoteResponse> getNoteById(int noteId) {
+    public NoteResponse getNoteById(int noteId) {
         User user = getCurrentUser();
-        Optional<Notes> note = notesRepo.findByNoteIdAndOwner(noteId, user);
-        if(note.isPresent()) {
-            return Optional.of(NoteMapper.toResponse(note.get()));
-        } else {
-            return Optional.empty();
-        }
+        Notes note = notesRepo.findByNoteIdAndOwner(noteId, user)
+                .orElseThrow(()-> new NoteNotFoundException("Note not found"));
+        return NoteMapper.toResponse(note);
     }
 
-    public boolean deleteNoteById(int noteId){
+    public void deleteNoteById(int noteId){
         User user = getCurrentUser();
-        Optional<Notes> existingNote = notesRepo.findByNoteIdAndOwner(noteId, user);
-        if(existingNote.isPresent()){
-            Notes note = existingNote.get();
-            notesRepo.delete(note);
-            return true;
-       } else {
-           return false;
-       }
+        Notes existingNote = notesRepo.findByNoteIdAndOwner(noteId, user)
+                .orElseThrow(()-> new NoteNotFoundException("Note not found"));
+        notesRepo.delete(existingNote);
     }
 }
