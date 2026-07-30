@@ -1,4 +1,4 @@
-package com.harsh.notesapp.dto;
+package com.harsh.notesapp.dto.notes;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

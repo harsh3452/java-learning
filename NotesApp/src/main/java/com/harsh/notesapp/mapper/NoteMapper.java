@@ -1,8 +1,8 @@
 package com.harsh.notesapp.mapper;
 
-import com.harsh.notesapp.dto.CreateNoteRequest;
-import com.harsh.notesapp.dto.NoteResponse;
-import com.harsh.notesapp.dto.UpdateNoteRequest;
+import com.harsh.notesapp.dto.notes.CreateNoteRequest;
+import com.harsh.notesapp.dto.notes.NoteResponse;
+import com.harsh.notesapp.dto.notes.UpdateNoteRequest;
 import com.harsh.notesapp.model.Notes;
 
 public final class NoteMapper {

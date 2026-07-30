@@ -1,16 +1,14 @@
 package com.harsh.notesapp.controller;
 
-import com.harsh.notesapp.dto.CreateNoteRequest;
-import com.harsh.notesapp.dto.NoteResponse;
-import com.harsh.notesapp.dto.UpdateNoteRequest;
-import com.harsh.notesapp.model.Notes;
+import com.harsh.notesapp.dto.notes.CreateNoteRequest;
+import com.harsh.notesapp.dto.notes.NoteResponse;
+import com.harsh.notesapp.dto.notes.UpdateNoteRequest;
 import com.harsh.notesapp.service.NotesService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/notes")
@@ -26,6 +24,7 @@ public class NotesController {
         return notesService.getAllNotes();
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
     public NoteResponse createNote(@Valid @RequestBody CreateNoteRequest note){
         return notesService.createNote(note);

@@ -1,22 +1,20 @@
 package com.harsh.notesapp.service;
 
-import com.harsh.notesapp.dto.CreateNoteRequest;
-import com.harsh.notesapp.dto.NoteResponse;
-import com.harsh.notesapp.dto.UpdateNoteRequest;
+import com.harsh.notesapp.dto.notes.CreateNoteRequest;
+import com.harsh.notesapp.dto.notes.NoteResponse;
+import com.harsh.notesapp.dto.notes.UpdateNoteRequest;
 import com.harsh.notesapp.exception.NoteNotFoundException;
 import com.harsh.notesapp.mapper.NoteMapper;
 import com.harsh.notesapp.model.Notes;
 import com.harsh.notesapp.model.User;
 import com.harsh.notesapp.config.UserPrincipal;
 import com.harsh.notesapp.repo.NotesRepo;
-import org.springframework.cglib.core.Local;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class NotesService {
