@@ -9,15 +9,20 @@ import com.harsh.notesapp.model.Notes;
 import com.harsh.notesapp.model.User;
 import com.harsh.notesapp.config.UserPrincipal;
 import com.harsh.notesapp.repo.NotesRepo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NotesService {
+
+    private static final Logger logger = LoggerFactory.getLogger(NotesService.class);
 
     private final NotesRepo notesRepo;
 
@@ -53,7 +58,7 @@ public class NotesService {
 
         // save the note to db
         Notes savedNote = notesRepo.save(note);
-
+        logger.info("Note '{}' created by user '{}'.", savedNote.getNoteId(), user.getUsername());
         // preparing NoteResponse dto to send to client
         return NoteMapper.toResponse(savedNote);
     }
@@ -63,18 +68,27 @@ public class NotesService {
         Notes existingNote = notesRepo.findByNoteIdAndOwner(noteId,user)
                 .orElseThrow(()-> new NoteNotFoundException("Note not found"));
 
-           NoteMapper.applyUpdate(updatedNote,existingNote);
-           existingNote.setLastEditedAt(LocalDateTime.now());
+        NoteMapper.applyUpdate(updatedNote,existingNote);
+        existingNote.setLastEditedAt(LocalDateTime.now());
 
-           Notes savedNote = notesRepo.save(existingNote);
-           return NoteMapper.toResponse(savedNote);
+        Notes savedNote = notesRepo.save(existingNote);
+        logger.info("Note '{}' updated by user '{}'.", savedNote.getNoteId(), user.getUsername());
+        return NoteMapper.toResponse(savedNote);
     }
 
     public NoteResponse getNoteById(int noteId) {
         User user = getCurrentUser();
-        Notes note = notesRepo.findByNoteIdAndOwner(noteId, user)
-                .orElseThrow(()-> new NoteNotFoundException("Note not found"));
-        return NoteMapper.toResponse(note);
+        Optional<Notes> note =
+                notesRepo.findByNoteIdAndOwner(noteId, user);
+        if (note.isEmpty()) {
+            logger.warn(
+                    "User '{}' attempted to access note '{}' which was not found or not owned by them.",
+                    user.getUsername(),
+                    noteId
+            );
+            throw new NoteNotFoundException("Note not found");
+        }
+        return NoteMapper.toResponse(note.get());
     }
 
     public void deleteNoteById(int noteId){
@@ -82,5 +96,6 @@ public class NotesService {
         Notes existingNote = notesRepo.findByNoteIdAndOwner(noteId, user)
                 .orElseThrow(()-> new NoteNotFoundException("Note not found"));
         notesRepo.delete(existingNote);
+        logger.info("Note '{}' deleted by user '{}'.", noteId, user.getUsername());
     }
 }
