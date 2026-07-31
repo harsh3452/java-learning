@@ -1,0 +1,49 @@
+2026-07-31T15:38:01.572+05:30  INFO 10472 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Starting NotesAppApplicationTests using Java 26.0.1 with PID 10472 (started by Harsh in C:\Users\Harsh\Documents\java-learning\NotesApp)
+2026-07-31T15:38:01.575+05:30 DEBUG 10472 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Running with Spring Boot v4.1.0, Spring v7.0.8
+2026-07-31T15:38:01.576+05:30  INFO 10472 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : No active profile set, falling back to 1 default profile: "default"
+2026-07-31T15:38:04.022+05:30  WARN 10472 --- [NotesApp] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-07-31T15:38:04.398+05:30  INFO 10472 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Started NotesAppApplicationTests in 3.032 seconds (process running for 3.723)
+2026-07-31T15:38:04.770+05:30  INFO 10472 --- [NotesApp] [main] com.harsh.notesapp.service.UserService   : User 'harsh' registered successfully
+2026-07-31T15:38:04.789+05:30  WARN 10472 --- [NotesApp] [main] com.harsh.notesapp.service.UserService   : Registration failed. Username 'harsh' already exists.
+2026-07-31T15:43:56.937+05:30  INFO 9224 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Starting NotesAppApplicationTests using Java 26.0.1 with PID 9224 (started by Harsh in C:\Users\Harsh\Documents\java-learning\NotesApp)
+2026-07-31T15:43:56.938+05:30 DEBUG 9224 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Running with Spring Boot v4.1.0, Spring v7.0.8
+2026-07-31T15:43:56.939+05:30  INFO 9224 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : No active profile set, falling back to 1 default profile: "default"
+2026-07-31T15:43:59.108+05:30  WARN 9224 --- [NotesApp] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-07-31T15:43:59.461+05:30  INFO 9224 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Started NotesAppApplicationTests in 2.733 seconds (process running for 15.059)
+2026-07-31T15:43:59.874+05:30  INFO 9224 --- [NotesApp] [main] com.harsh.notesapp.service.UserService   : User 'harsh' registered successfully
+2026-07-31T15:43:59.886+05:30  WARN 9224 --- [NotesApp] [main] com.harsh.notesapp.service.UserService   : Registration failed. Username 'harsh' already exists.
+2026-07-31T15:45:15.239+05:30  INFO 11540 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Starting NotesAppApplicationTests using Java 26.0.1 with PID 11540 (started by Harsh in C:\Users\Harsh\Documents\java-learning\NotesApp)
+2026-07-31T15:45:15.240+05:30 DEBUG 11540 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Running with Spring Boot v4.1.0, Spring v7.0.8
+2026-07-31T15:45:15.241+05:30  INFO 11540 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : No active profile set, falling back to 1 default profile: "default"
+2026-07-31T15:45:17.177+05:30  WARN 11540 --- [NotesApp] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-07-31T15:45:17.547+05:30  INFO 11540 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Started NotesAppApplicationTests in 2.49 seconds (process running for 3.121)
+2026-07-31T15:45:17.922+05:30  INFO 11540 --- [NotesApp] [main] com.harsh.notesapp.service.UserService   : User 'harsh' registered successfully
+2026-07-31T15:45:17.941+05:30  WARN 11540 --- [NotesApp] [main] com.harsh.notesapp.service.UserService   : Registration failed. Username 'harsh' already exists.
+2026-07-31T15:50:38.034+05:30  INFO 22488 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Starting NotesAppApplicationTests using Java 26.0.1 with PID 22488 (started by Harsh in C:\Users\Harsh\Documents\java-learning\NotesApp)
+2026-07-31T15:50:38.034+05:30 DEBUG 22488 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Running with Spring Boot v4.1.0, Spring v7.0.8
+2026-07-31T15:50:38.035+05:30  INFO 22488 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : No active profile set, falling back to 1 default profile: "default"
+2026-07-31T15:50:39.965+05:30  WARN 22488 --- [NotesApp] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-07-31T15:50:40.325+05:30  INFO 22488 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Started NotesAppApplicationTests in 2.479 seconds (process running for 3.095)
+2026-07-31T15:50:40.692+05:30  INFO 22488 --- [NotesApp] [main] com.harsh.notesapp.service.UserService   : User 'harsh' registered successfully
+2026-07-31T15:50:40.715+05:30  WARN 22488 --- [NotesApp] [main] com.harsh.notesapp.service.UserService   : Registration failed. Username 'harsh' already exists.
+2026-07-31T15:51:02.218+05:30  INFO 20196 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Starting NotesAppApplicationTests using Java 26.0.1 with PID 20196 (started by Harsh in C:\Users\Harsh\Documents\java-learning\NotesApp)
+2026-07-31T15:51:02.219+05:30 DEBUG 20196 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Running with Spring Boot v4.1.0, Spring v7.0.8
+2026-07-31T15:51:02.220+05:30  INFO 20196 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : No active profile set, falling back to 1 default profile: "default"
+2026-07-31T15:51:04.143+05:30  WARN 20196 --- [NotesApp] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-07-31T15:51:04.505+05:30  INFO 20196 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Started NotesAppApplicationTests in 2.475 seconds (process running for 3.118)
+2026-07-31T15:51:04.869+05:30  INFO 20196 --- [NotesApp] [main] com.harsh.notesapp.service.UserService   : User 'harsh' registered successfully
+2026-07-31T15:51:04.889+05:30  WARN 20196 --- [NotesApp] [main] com.harsh.notesapp.service.UserService   : Registration failed. Username 'harsh' already exists.
+2026-07-31T16:11:33.826+05:30  INFO 3984 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Starting NotesAppApplicationTests using Java 26.0.1 with PID 3984 (started by Harsh in C:\Users\Harsh\Documents\java-learning\NotesApp)
+2026-07-31T16:11:33.827+05:30 DEBUG 3984 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Running with Spring Boot v4.1.0, Spring v7.0.8
+2026-07-31T16:11:33.828+05:30  INFO 3984 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : No active profile set, falling back to 1 default profile: "default"
+2026-07-31T16:11:35.848+05:30  WARN 3984 --- [NotesApp] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-07-31T16:11:36.231+05:30  INFO 3984 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Started NotesAppApplicationTests in 2.602 seconds (process running for 3.284)
+2026-07-31T16:11:36.620+05:30  INFO 3984 --- [NotesApp] [main] com.harsh.notesapp.service.UserService   : User 'harsh' registered successfully
+2026-07-31T16:11:36.642+05:30  WARN 3984 --- [NotesApp] [main] com.harsh.notesapp.service.UserService   : Registration failed. Username 'harsh' already exists.
+2026-07-31T16:15:12.389+05:30  INFO 21556 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Starting NotesAppApplicationTests using Java 26.0.1 with PID 21556 (started by Harsh in C:\Users\Harsh\Documents\java-learning\NotesApp)
+2026-07-31T16:15:12.389+05:30 DEBUG 21556 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Running with Spring Boot v4.1.0, Spring v7.0.8
+2026-07-31T16:15:12.390+05:30  INFO 21556 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : No active profile set, falling back to 1 default profile: "default"
+2026-07-31T16:15:14.404+05:30  WARN 21556 --- [NotesApp] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-07-31T16:15:14.772+05:30  INFO 21556 --- [NotesApp] [main] c.h.notesapp.NotesAppApplicationTests    : Started NotesAppApplicationTests in 2.578 seconds (process running for 3.236)
+2026-07-31T16:15:15.164+05:30  INFO 21556 --- [NotesApp] [main] com.harsh.notesapp.service.UserService   : User 'harsh' registered successfully
+2026-07-31T16:15:15.187+05:30  WARN 21556 --- [NotesApp] [main] com.harsh.notesapp.service.UserService   : Registration failed. Username 'harsh' already exists.
