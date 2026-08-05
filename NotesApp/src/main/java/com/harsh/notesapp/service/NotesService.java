@@ -63,18 +63,18 @@ public class NotesService {
         return NoteMapper.toResponse(savedNote);
     }
 
-    public NoteResponse updateNote(int noteId, UpdateNoteRequest updatedNote) {
-        User user = getCurrentUser();
-        Notes existingNote = notesRepo.findByNoteIdAndOwner(noteId,user)
-                .orElseThrow(()-> new NoteNotFoundException("Note not found"));
+        public NoteResponse updateNote(int noteId, UpdateNoteRequest updatedNote) {
+            User user = getCurrentUser();
+            Notes existingNote = notesRepo.findByNoteIdAndOwner(noteId,user)
+                    .orElseThrow(()-> new NoteNotFoundException("Note not found"));
 
-        NoteMapper.applyUpdate(updatedNote,existingNote);
-        existingNote.setLastEditedAt(LocalDateTime.now());
+            NoteMapper.applyUpdate(updatedNote,existingNote);
+            existingNote.setLastEditedAt(LocalDateTime.now());
 
-        Notes savedNote = notesRepo.save(existingNote);
-        logger.info("Note '{}' updated by user '{}'.", savedNote.getNoteId(), user.getUsername());
-        return NoteMapper.toResponse(savedNote);
-    }
+            Notes savedNote = notesRepo.save(existingNote);
+            logger.info("Note '{}' updated by user '{}'.", savedNote.getNoteId(), user.getUsername());
+            return NoteMapper.toResponse(savedNote);
+        }
 
     public NoteResponse getNoteById(int noteId) {
         User user = getCurrentUser();
