@@ -24,6 +24,8 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -69,6 +71,59 @@ public class NoteServiceTest {
     }
 
     @Test
+    void shouldReturnAllNotesSuccessfully(){
+        LocalDateTime now = LocalDateTime.now();
+
+        Notes note1 = new Notes();
+        note1.setNoteId(1);
+        note1.setTitle("Java");
+        note1.setBody("Learning Java");
+        note1.setOwner(user);
+        note1.setCreatedAt(now);
+        note1.setLastEditedAt(now);
+
+        Notes note2 = new Notes();
+        note2.setNoteId(2);
+        note2.setTitle("Spring Boot");
+        note2.setBody("Learning Spring Boot");
+        note2.setOwner(user);
+        note2.setCreatedAt(now);
+        note2.setLastEditedAt(now);
+
+        when(notesRepo.findByOwner(user)).thenReturn(List.of(note1,note2));
+
+        List<NoteResponse> responses = notesService.getAllNotes();
+
+        assertEquals(2, responses.size());
+
+        assertEquals(note1.getNoteId(), responses.get(0).getNoteId());
+        assertEquals(note1.getTitle(), responses.get(0).getTitle());
+
+        assertEquals(note2.getNoteId(), responses.get(1).getNoteId());
+        assertEquals(note2.getTitle(), responses.get(1).getTitle());
+
+        verify(notesRepo).findByOwner(user);
+
+    }
+
+    @Test
+    void shouldReturnEmptyListWhenUserHasNoNotes() {
+
+        // Arrange
+        when(notesRepo.findByOwner(user))
+                .thenReturn(Collections.emptyList());
+
+        // Act
+        List<NoteResponse> response = notesService.getAllNotes();
+
+        // Assert
+        assertTrue(response.isEmpty());
+
+        // Verify
+        verify(notesRepo).findByOwner(user);
+    }
+
+    @Test
     void shouldCreateNoteSuccessfully(){
 
 
@@ -103,7 +158,6 @@ public class NoteServiceTest {
         assertEquals(savedNote.getTitle(), noteResponse.getTitle());
 
     }
-
 
     @Test
     void shouldUpdateNoteSuccessfully(){
@@ -216,7 +270,30 @@ public class NoteServiceTest {
         verify(notesRepo).findByNoteIdAndOwner(noteId,user);
     }
 
+    @Test
+    void shouldDeleteNoteSuccessfully(){
+        final int noteId = 4;
+        Notes existingNote = new Notes();
+        existingNote.setNoteId(4);
+         when(notesRepo.findByNoteIdAndOwner(noteId,user)).thenReturn(Optional.of(existingNote));
+         notesService.deleteNoteById(noteId);
+         verify(notesRepo).findByNoteIdAndOwner(noteId,user);
+         verify(notesRepo,times(1)).delete(existingNote);
+    }
 
+    @Test
+    void shouldThrowNoteNotFoundExceptionWhenDeletingNoteById(){
+        //Arrange
+        final int noteId = 4;
+        when(notesRepo.findByNoteIdAndOwner(noteId,user)).thenReturn(Optional.empty());
 
+        //Act
+        NoteNotFoundException exception = assertThrows(NoteNotFoundException.class,()->notesService.deleteNoteById(noteId));
+
+        //Assert/Verify Phase
+        assertEquals("Note not found",exception.getMessage());
+        verify(notesRepo).findByNoteIdAndOwner(noteId,user);
+        verify(notesRepo, never()).delete(any(Notes.class));
+    }
 
 }
